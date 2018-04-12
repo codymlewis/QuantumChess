@@ -38,8 +38,27 @@ class Board:
                     self.playBoard[index] = pawn.Pawn(0,True,colour,j)
                 else:
                     self.playBoard[index] = '0'
+    def addMovement(self,i,move):
+        i = str(i)
+        if(move == 'u'):
+            i = chr(ord(i[0:1])-1) + str(int(i[1:]))
+        elif(move == 'd'):
+            i = chr(ord(i[0:1])+1) + str(int(i[1:]))
+        elif(move == 'r'):
+            i = i[0:1] + str(int(i[1:])-1)
+        elif(move == 'l'):
+            i = i[0:1] + str(int(i[1:])+1)
+        elif(move == 'q'):
+            i = chr(ord(i[0:1])-1) + str(int(i[1:])-1)
+        elif(move == 'g'):
+            i = chr(ord(i[0:1])+1) + str(int(i[1:])-1)
+        elif(move == 'h'):
+            i = chr(ord(i[0:1])+1)  + str(int(i[1:])+1)
+        else:
+            i = chr(ord(i[0:1])-1) + str(int(i[1:])+1)
+        return i
     
-    def play(self,start,end,colour): # TODO: stop pieces from teleporting through eachother, modify the entanglement, add the superposition move
+    def play(self,start,end,colour): # TODO:  modify the entanglement, add the superposition move
         # check if inputs are valid
         if(end != start and self.checkPoint(start) and self.checkPoint(end)):
             if(self.playBoard[start] != '0'):
@@ -49,6 +68,15 @@ class Board:
                     dy = ord(start[0:1]) - ord(end[0:1]) # +ve: up, -ve: down
                     dx = int(start[1:]) - int(end[1:])   # +ve: right, -ve: left
                     movement = self.pathToString(dx,dy)
+                    i = start
+                    i = self.addMovement(i,movement[0:1]) 
+                    if(i != end and self.playBoard[i] != '0'): # make sure nothing is in the way
+                        return False
+                    if(len(movement) > 1):
+                        for j in range(1,len(movement)):
+                            i = self.addMovement(i,movement[j:j+1])
+                            if(i != end and self.playBoard[i] != '0'):
+                                return False
                     # output path as string into piece
                     if(self.playBoard[end] == '0'):
                         if(self.playBoard[start].canMove(movement)):
@@ -62,7 +90,7 @@ class Board:
                         if(self.playBoard[start].getId()[0:1] != self.playBoard[end].getId()[0:1]): # canMove function is contained in attack
                             # then do the attack
                             kill,supKill = self.playBoard[start].attack(self.playBoard[end],movement)
-                            if(kill): # maybe modify attack return values
+                            if(kill):
                                 self.playBoard[end] = self.playBoard[start]
                                 self.playBoard[start] = '0'
                                 if(supKill):

@@ -1,10 +1,11 @@
 # board.py - QuantumChess
 # Author: Cody Lewis
 # Date: 26-FEB-2018
-# Mod.: 03-MAR-2018
+# Mod.: 12-APR-2018
 # Description:
 # The board for the Quantum Chess
 # the board is indexed with a birds eye view with the white pieces on the bottom
+import re
 import pawn
 import rook
 import bishop
@@ -39,7 +40,6 @@ class Board:
                 else:
                     self.playBoard[index] = '0'
     def addMovement(self,i,move):
-        i = str(i)
         if(move == 'u'):
             i = chr(ord(i[0:1])-1) + str(int(i[1:]))
         elif(move == 'd'):
@@ -58,7 +58,7 @@ class Board:
             i = chr(ord(i[0:1])-1) + str(int(i[1:])+1)
         return i
     
-    def play(self,start,end,colour): # TODO:  modify the entanglement, add the superposition move
+    def play(self,start,end,colour,sp):
         # check if inputs are valid
         if(end != start and self.checkPoint(start) and self.checkPoint(end)):
             if(self.playBoard[start] != '0'):
@@ -80,21 +80,27 @@ class Board:
                     # output path as string into piece
                     if(self.playBoard[end] == '0'):
                         if(self.playBoard[start].canMove(movement)):
-                            self.playBoard[end] = self.playBoard[start]
-                            self.playBoard[start] = '0'
+                            if(sp):
+                                self.playBoard[start].superposition()
+                                self.playBoard[end] = self.playBoard[start]
+                            else:
+                                self.playBoard[end] = self.playBoard[start]
+                                self.playBoard[start] = '0'
                             return True
                         else:
                             return False
                     # check for attack
                     else: # ends at another piece
+                        if(sp):
+                            return False
                         if(self.playBoard[start].getId()[0:1] != self.playBoard[end].getId()[0:1]): # canMove function is contained in attack
                             # then do the attack
                             kill,supKill = self.playBoard[start].attack(self.playBoard[end],movement)
                             if(kill):
+                                if(supKill):
+                                    self.findAndDestroyParent(end)
                                 self.playBoard[end] = self.playBoard[start]
                                 self.playBoard[start] = '0'
-                                if(supKill):
-                                    self.findAndDestroyAllId(end)
                                 return True
                             return False
                         else:
@@ -207,9 +213,42 @@ class Board:
                     for i in range(abs(dx)):
                         string = string + 'h'
         return string
-    def findAndDestroyAllId(self,index):
+    def findAndDestroyParent(self,point):
         # search board for all matching pieces and destroy them
-        return ''
+        ident = self.playBoard[point].getId()
+        num = int(ident[len(ident)-1:len(ident)])
+        parent = ident[0:len(ident)-1] + '.'
+        for i in range(97,98+self.rows):
+            for j in range(1,self.columns+1):
+                index = chr(i) + str(j)
+                if(self.playBoard[index] != '0'):
+                    if(index != point and re.match(parent,self.playBoard[index].getId())):
+                        otherId = self.playBoard[index].getId()
+                        otherNum = int(otherId[len(otherId)-1:len(otherId)])
+                        if(otherNum >= num):
+                            self.playBoard[index] = '0'
+
+    def win(self):
+        blackWin = True
+        bkPat = 'BKi.*'
+        whiteWin = True
+        wkPat = 'WKi.*'
+        for i in range(97,98+self.rows):
+            for j in range(1,self.columns+1):
+                index = chr(i) + str(j)
+                if(self.playBoard[index] != '0'):
+                    currId = self.playBoard[index].getId()
+                    if(re.match(bkPat,currId)):
+                        whiteWin = False
+                    elif(re.match(wkPat,currId)):
+                        blackWin = False
+        if(whiteWin):
+            return 'W'
+        elif(blackWin):
+            return 'B'
+        else:
+            return '0'
+
 
     def toString(self):
         string = ''

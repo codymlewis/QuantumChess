@@ -1,12 +1,12 @@
 # board.py - QuantumChess
 # Author: Cody Lewis
 # Date: 26-FEB-2018
-# Mod.: 12-APR-2018
+# Mod.: 04-MAY-2018
 # Description:
 # The board for the Quantum Chess
 # the board is indexed with a birds eye view with the white pieces on the bottom
-import re
-import pawn
+import re # regex
+import pawn # the various pieces
 import rook
 import bishop
 import knight
@@ -24,7 +24,7 @@ class Board:
                 colour = 'W'
             for j in range(1,self.columns+1): # numbers for rows, with 1 at the left and 8 at the right
                 index = str(chr(i)) + str(j)
-                if(i == 97 or i==97+self.rows):
+                if(i == 97 or i==97+self.rows): # essentially a factory method
                     if(j == 1 or j == 8):
                         self.playBoard[index] = rook.Rook(0,True,colour,j)
                     elif(j == 2 or j == 7):
@@ -39,7 +39,8 @@ class Board:
                     self.playBoard[index] = pawn.Pawn(0,True,colour,j)
                 else:
                     self.playBoard[index] = '0'
-    def addMovement(self,i,move):
+
+    def addMovement(self,i,move): # add an atomic movement unit to the index
         if(move == 'u'):
             i = chr(ord(i[0:1])-1) + str(int(i[1:]))
         elif(move == 'd'):
@@ -107,7 +108,7 @@ class Board:
                             return False
         return False
 
-    def checkPoint(self,p):
+    def checkPoint(self,p): # check whether a point is on the board
         charNum = ord(p[0:1])
         if(charNum > 96 and charNum < 98+self.rows):
             num = int(p[1:])
@@ -213,9 +214,10 @@ class Board:
                     for i in range(abs(dx)):
                         string = string + 'h'
         return string
+
     def findAndDestroyParent(self,point):
         # search board for all matching pieces and destroy them
-        ident = self.playBoard[point].getId()
+        ident = self.playBoard[point].getId() # identifier
         num = int(ident[len(ident)-1:len(ident)])
         parent = ident[0:len(ident)-1] + '.'
         for i in range(97,98+self.rows):
@@ -228,7 +230,7 @@ class Board:
                         if(otherNum >= num):
                             self.playBoard[index] = '0'
 
-    def win(self):
+    def win(self): # find if one of the players have no kings left
         blackWin = True
         bkPat = 'BKi.*'
         whiteWin = True
@@ -249,10 +251,9 @@ class Board:
         else:
             return '0'
 
-
     def toString(self):
         string = ''
-        for i in range(97,99+self.rows):
+        for i in range(97,99+self.rows): # iterate through the letter part of the index
             if(i < 98+self.rows):
                 string = string + chr(i)
             string = string + ' '
@@ -265,6 +266,6 @@ class Board:
                 else:
                     idTag = self.playBoard[index].getId()[:3]
                     string = string + '|' + idTag
-            if(i < 98+self.rows):
+            if(i < 98+self.rows): # put a pipe at the end of the line
                 string = string + '|\n'
         return string

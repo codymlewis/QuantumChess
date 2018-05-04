@@ -1,10 +1,10 @@
 # functions.py - QuantumChess
 # Author: Cody Lewis
 # Date: 23-FEB-2018
-# Mod.: 25-FEB-2018
+# Mod.: 04-MAY-2018
 # Description:
 # defines misc. functions for the Quantum Chess program
-def evalQubit(qrNo):
+def evalQubit(qrNo): # check if the most occurring qubit is all ones
     from qiskit import QuantumProgram
     qp = QuantumProgram()
     try:
@@ -29,7 +29,7 @@ def getGreatestCount(qrNo,counts):
     # increment throught dict, find greatest value, return index
     greatestCount = ''
     gc = 0
-    perms = pow(2,qrNo)
+    perms = 2**qrNo
     for i in range(0,perms):
         index = bin(i)[2:]
         if(len(index) < qrNo):
@@ -39,12 +39,6 @@ def getGreatestCount(qrNo,counts):
             greatestCount = index
             gc = counts[index]
     return greatestCount
-
-def pow(n,i):
-    if(i == 0 or i == 1):
-        return n
-    else:
-        return n*pow(n,i-1)
 
 def splitMovement(movement):
     # split the string movement into individual characters and store them in the returned array

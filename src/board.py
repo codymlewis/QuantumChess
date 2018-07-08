@@ -58,7 +58,7 @@ class Board:
         else:
             i = chr(ord(i[0:1])-1) + str(int(i[1:])+1)
         return i
-    
+
     def play(self,start,end,colour,sp):
         # check if inputs are valid
         if(end != start and self.checkPoint(start) and self.checkPoint(end)):
@@ -70,13 +70,13 @@ class Board:
                     dx = int(start[1:]) - int(end[1:])   # +ve: right, -ve: left
                     movement = self.pathToString(dx,dy)
                     i = start
-                    i = self.addMovement(i,movement[0:1]) 
-                    if(i != end and self.playBoard[i] != '0'): # make sure nothing is in the way
+                    i = self.addMovement(i,movement[0:1])
+                    if((self.playBoard[start].getId()[1:3] != "Kn" and (movement[0:1] in ['u', 'd', 'l', 'r'])) and i != end and self.playBoard[i] != '0'): # make sure nothing is in the way
                         return False
                     if(len(movement) > 1):
                         for j in range(1,len(movement)):
                             i = self.addMovement(i,movement[j:j+1])
-                            if(i != end and self.playBoard[i] != '0'):
+                            if(i != end and self.playBoard[i] != '0'): # check whether there are pieces in the way
                                 return False
                     # output path as string into piece
                     if(self.playBoard[end] == '0'):

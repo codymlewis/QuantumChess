@@ -1,0 +1,4 @@
+.bg-img {
+    background: linear-gradient(rgb(0, 72, 0), rgb(28, 100, 28), rgb(56, 128, 56), rgb(84, 156, 84), rgb(255, 255, 255));
+    background-repeat: no-repeat;
+}

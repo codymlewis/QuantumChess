@@ -4,14 +4,14 @@
 # Mod.: 04-MAY-2018
 # Description:
 # defines misc. functions for the Quantum Chess program
+from qiskit import QuantumProgram
 def evalQubit(qrNo): # check if the most occurring qubit is all ones
-    from qiskit import QuantumProgram
     qp = QuantumProgram()
     try:
         qr = qp.create_quantum_register("qr",qrNo)
         cr = qp.create_classical_register("cr",qrNo)
         qc = qp.create_circuit("superposition", [qr], [cr])
-        
+
         isPiece = ''
         for i in range(qrNo):
             qc.h(qr[i])
@@ -19,7 +19,7 @@ def evalQubit(qrNo): # check if the most occurring qubit is all ones
         qc.measure(qr, cr)
         result = qp.execute(["superposition"], backend="local_qasm_simulator", shots=1024)
         counts = result.get_counts("superposition")
-        return isPiece == getGreatestCount(qrNo,counts)
+        return isPiece == getGreatestCount(qrNo, counts)
     except QISKITError as ex:
         print("There was an error in the circuit! Error = {}".format(ex))
     except RegisterSizeError as ex:

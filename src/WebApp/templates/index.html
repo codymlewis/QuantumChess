@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block scripts %}
+    <script src={{ url_for("static", filename="scripts/chess.js") }}></script>
+{% endblock %}
+
+{% block contents %}
+    <div class="container-fluid bg-light">
+        <div class="container">
+            <!-- <h1 class="display-1">Quantum Chess</h1> -->
+            <canvas class="col-12" id="qccanvas"></canvas>
+        </div>
+    </div>
+{% endblock %}

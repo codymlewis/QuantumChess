@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Quantum Chess using Quantum Programming">
+    <meta name="keywords" content="">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; worker-src 'none'; frame-src 'none'"> -->
+    <meta name="author" content="Cody Lewis">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <link rel="stylesheet" href={{ url_for("static", filename="css/style.css") }}>
+    <link rel="shortcut icon" href={{ url_for("static", filename="images/icons/favicon.ico") }} type="image/x-icon">
+    <title>{% block title %}{% endblock %} - / && STEM</title>
+    <!-- Bootstrap 4 -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    {% block scripts %}{% endblock %}
+</head>
+<body class="bg-img">
+    <div class="container-fluid text-body">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link selected" href="/home/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Other</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/luxdosugi">Git</a>
+                </li>
+            </ul>
+        </nav>
+        {% block contents %}{% endblock %}
+    </div>
+</body>
+</html>

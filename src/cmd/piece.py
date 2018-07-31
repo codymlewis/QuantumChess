@@ -28,7 +28,7 @@ class Piece:
             return enemy.die()
         else:
             return False,False
-    
+
     def canAttack(self,movement):
         return self.canMove(movement)
 

@@ -1,7 +1,6 @@
 # functions.py - QuantumChess
 # Author: Cody Lewis
 # Date: 23-FEB-2018
-# Mod.: 04-MAY-2018
 # Description:
 # defines misc. functions for the Quantum Chess program
 from enum import Enum

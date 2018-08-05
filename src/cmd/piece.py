@@ -1,7 +1,6 @@
 # piece.py - QuantumChess
 # Author: Cody Lewis
 # Date: 21-FEB-2018
-# Mod.: 12-APR-2018
 # Description: Defines the super class of a piece in Quantum Chess
 import functions
 class Piece:
@@ -15,7 +14,7 @@ class Piece:
         return self.idTag
 
     def getSuperPosNum(self):
-        return self.superPosNo
+        return self.superposNo
 
     def superposition(self):
         self.superposNo += 1
@@ -23,13 +22,13 @@ class Piece:
         if self.firstSuperPos:
             self.firstSuperPos = False
 
-    def attack(self,enemy,movement):
+    def attack(self, enemy, movement):
         if self.canAttack(movement):
             return enemy.die()
         else:
-            return False,False
+            return False, False
 
-    def canAttack(self,movement):
+    def canAttack(self, movement):
         return self.canMove(movement)
 
     def die(self):

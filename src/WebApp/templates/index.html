@@ -3,17 +3,20 @@
 {% block title %}Home{% endblock %}
 
 {% block scripts %}
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src={{ url_for("static", filename="scripts/chess.js") }}></script>
 {% endblock %}
 
 {% block contents %}
     <div class="container-fluid bg-light">
+        <h1 class="display-1 text-center">Quantum Chess</h1>
         <br />
         <div class="container">
             <div class="container" id="board">
                 {% for i in range(0, 8) %}
                     <div class="row">
-                        <div class="col-sm-2"></div>
+                        <div class="col-sm-2 text-right"></div>
                         {% for j in range(0, 8) %}
                             <div class="col-1
                             {% if ((j % 2) == (i % 2)) %}
@@ -37,7 +40,7 @@
                                         fa-chess-king
                                     {% endif %}
                                 {% else %}
-                                    fa-chess-pawn
+                                    fa-chess-pawn first-move
                                 {% endif %}
                                 {% if i in [0, 1] %}
                                     pc-black
@@ -51,6 +54,11 @@
                         <div class="col-sm-2"></div>
                     </div>
                 {% endfor %}
+                <br />
+                <div class="col-sm-4 mx-auto checkbox">
+                        <label class="" for="sp">Super-position</label>
+                        <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" class="" name="sp" id="sp" value="checked">
+                </div>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 import re # regex
-import Piece
-from Functions import Direction
+from . import Piece
+from . import Functions
 class Board:
     def __init__(self):
         self.playBoard = dict()
@@ -30,19 +30,19 @@ class Board:
                     self.playBoard[index] = '0'
 
     def addMovement(self, i, move): # add an atomic movement unit to the index
-        if(move == Direction.UP):
+        if(move == Functions.Direction.UP):
             i = chr(ord(i[0:1])-1) + str(int(i[1:]))
-        elif(move == Direction.DOWN):
+        elif(move == Functions.Direction.DOWN):
             i = chr(ord(i[0:1])+1) + str(int(i[1:]))
-        elif(move == Direction.RIGHT):
+        elif(move == Functions.Direction.RIGHT):
             i = i[0:1] + str(int(i[1:])-1)
-        elif(move == Direction.LEFT):
+        elif(move == Functions.Direction.LEFT):
             i = i[0:1] + str(int(i[1:])+1)
-        elif(move == Direction.UPRIGHT):
+        elif(move == Functions.Direction.UPRIGHT):
             i = chr(ord(i[0:1])-1) + str(int(i[1:])-1)
-        elif(move == Direction.DOWNRIGHT):
+        elif(move == Functions.Direction.DOWNRIGHT):
             i = chr(ord(i[0:1])+1) + str(int(i[1:])-1)
-        elif(move == Direction.DOWNLEFT):
+        elif(move == Functions.Direction.DOWNLEFT):
             i = chr(ord(i[0:1])+1)  + str(int(i[1:])+1)
         else:
             i = chr(ord(i[0:1])-1) + str(int(i[1:])+1)
@@ -258,3 +258,9 @@ class Board:
             if(i < 98+self.rows): # put a pipe at the end of the line
                 string = string + '|\n'
         return string
+
+INSTANCEBOARD = Board()
+def play(start, end, colour, sp):
+    if INSTANCEBOARD.play(start, end, colour, sp):
+        return INSTANCEBOARD.toString()
+    return False

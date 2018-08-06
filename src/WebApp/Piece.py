@@ -1,5 +1,4 @@
-import Functions
-from Functions import Direction
+from . import Functions
 class Piece:
     def __init__(self, superposNum, frstSuperPos, col, idT):
         self.superposNo = superposNum
@@ -52,9 +51,9 @@ class Pawn(Piece):
             moveNum = 1
         if(len(moveArr) <= moveNum):
             if(self.colour == 'W'):
-                direction = Direction.UP
+                direction = Functions.Direction.UP
             else:
-                direction = Direction.DOWN
+                direction = Functions.Direction.DOWN
             for i in range(len(moveArr)):
                 if(not moveArr[i] == direction):
                     return False
@@ -64,11 +63,11 @@ class Pawn(Piece):
     def canAttack(self, movement):
         moveArr = Functions.splitMovement(movement)
         if(self.colour == 'W'):
-            dir1 = Direction.UPLEFT
-            dir2 = Direction.UPRIGHT
+            dir1 = Functions.Direction.UPLEFT
+            dir2 = Functions.Direction.UPRIGHT
         else:
-            dir1 = Direction.DOWNLEFT
-            dir2 = Direction.DOWNRIGHT
+            dir1 = Functions.Direction.DOWNLEFT
+            dir2 = Functions.Direction.DOWNRIGHT
         if(len(moveArr) == 1 and (moveArr[0] == dir1 or moveArr[0] == dir2)):
             return True
         else:
@@ -82,7 +81,7 @@ class Bishop(Piece):
     def canMove(self,movement):
         moveArr = Functions.splitMovement(movement)
         direction = moveArr[0]
-        if direction in [Direction.UPLEFT, Direction.UPRIGHT, Direction.DOWNLEFT, Direction.DOWNRIGHT]:
+        if direction in [Functions.Direction.UPLEFT, Functions.Direction.UPRIGHT, Functions.Direction.DOWNLEFT, Functions.Direction.DOWNRIGHT]:
             for i in range(1, len(moveArr)):
                 if(direction != moveArr[i]):
                     return False
@@ -98,7 +97,7 @@ class King(Piece):
         moveArr = Functions.splitMovement(movement)
         direction = moveArr[0]
         if(len(moveArr) == 1):
-            if direction in [Direction.DOWN, Direction.UP, Direction.RIGHT, Direction.LEFT, Direction.DOWNRIGHT, Direction.DOWNLEFT, Direction.UPRIGHT, Direction.UPLEFT]:
+            if direction in [Functions.Direction.DOWN, Functions.Direction.UP, Functions.Direction.RIGHT, Functions.Direction.LEFT, Functions.Direction.DOWNRIGHT, Functions.Direction.DOWNLEFT, Functions.Direction.UPRIGHT, Functions.Direction.UPLEFT]:
                 return True
         return False
 
@@ -115,17 +114,17 @@ class Knight(Piece):
         return False
 
     def __isL(self, moveArr):
-        if(moveArr[0] == Direction.UP):
-            if(moveArr[1] == Direction.UPLEFT or moveArr[1] == Direction.UPRIGHT):
+        if(moveArr[0] == Functions.Direction.UP):
+            if(moveArr[1] == Functions.Direction.UPLEFT or moveArr[1] == Functions.Direction.UPRIGHT):
                 return True
-        elif(moveArr[0] == Direction.DOWN):
-            if(moveArr[1] == Direction.DOWNLEFT or moveArr[1] == Direction.DOWNRIGHT):
+        elif(moveArr[0] == Functions.Direction.DOWN):
+            if(moveArr[1] == Functions.Direction.DOWNLEFT or moveArr[1] == Functions.Direction.DOWNRIGHT):
                 return True
-        elif(moveArr[0] == Direction.LEFT):
-            if(moveArr[1] == Direction.UPLEFT or moveArr[1] == Direction.DOWNLEFT):
+        elif(moveArr[0] == Functions.Direction.LEFT):
+            if(moveArr[1] == Functions.Direction.UPLEFT or moveArr[1] == Functions.Direction.DOWNLEFT):
                 return True
-        elif(moveArr[0] == Direction.RIGHT):
-            if(moveArr[1] == Direction.UPRIGHT or moveArr[1] == Direction.DOWNRIGHT):
+        elif(moveArr[0] == Functions.Direction.RIGHT):
+            if(moveArr[1] == Functions.Direction.UPRIGHT or moveArr[1] == Functions.Direction.DOWNRIGHT):
                 return True
         else:
             return False
@@ -138,7 +137,7 @@ class Queen(Piece):
     def canMove(self, movement):
         moveArr = Functions.splitMovement(movement)
         direction = moveArr[0]
-        if direction in [Direction.DOWN, Direction.UP, Direction.RIGHT, Direction.LEFT, Direction.DOWNRIGHT, Direction.DOWNLEFT, Direction.UPRIGHT, Direction.UPLEFT]:
+        if direction in [Functions.Direction.DOWN, Functions.Direction.UP, Functions.Direction.RIGHT, Functions.Direction.LEFT, Functions.Direction.DOWNRIGHT, Functions.Direction.DOWNLEFT, Functions.Direction.UPRIGHT, Functions.Direction.UPLEFT]:
             for i in range(1, len(moveArr)):
                 if(direction != moveArr[i]):
                     return False
@@ -153,7 +152,7 @@ class Rook(Piece):
     def canMove(self, movement):
         moveArr = Functions.splitMovement(movement)
         direction = moveArr[0]
-        if direction in [Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT]:
+        if direction in [Functions.Direction.UP, Functions.Direction.DOWN, Functions.Direction.LEFT, Functions.Direction.RIGHT]:
             for i in range(1, len(moveArr)):
                 if direction != moveArr[i]:
                     return False

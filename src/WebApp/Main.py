@@ -1,4 +1,5 @@
-from qiskit import QuantumProgram
+# import Board
+# from qiskit import QuantumProgram
 from flask import (
     Blueprint, render_template, url_for, redirect, current_app, g, session, request, flash
 )
@@ -11,3 +12,6 @@ def index():
 @bp.route("/home")
 def home():
     return render_template("index.html")
+
+# def create_board():
+#     return Board.Board()

@@ -18,7 +18,7 @@ if __name__ == "__main__":
             print("Black wins!")
             break
         print(b.toString())
-        i+=1
+        i += 1
         if(col == 'W'):
             col = 'B'
             print("Blacks turn")

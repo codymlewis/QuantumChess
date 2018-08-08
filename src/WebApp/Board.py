@@ -268,3 +268,6 @@ def reset_board():
 
 def play(start, end, colour, sp):
     return INSTANCEBOARD.play(start, end, colour, sp)
+
+def win():
+    return INSTANCEBOARD.win()

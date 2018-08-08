@@ -17,6 +17,6 @@ def home():
         start = clean(request.form["start"])
         end = clean(request.form["end"])
         success, sup_kill = Board.play(start, end, colour, sp)
-        return "{},{}".format("success" if success else "fail", "success"  if sup_kill else "fail")
+        return "{},{},{}".format("success" if success else "fail", "success"  if sup_kill else "fail", Board.win())
     Board.reset_board()
     return render_template("index.html")

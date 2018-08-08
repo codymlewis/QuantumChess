@@ -99,13 +99,21 @@ function postMovement(start, end) {
     var superpos = sp.checked ? "True" : "False";
     $.post("/home", { "sp" : superpos, "colour" : colour, "start" : start, "end" : end }, function(data) {
         result = data.split(",");
-        if(result[0] == "success") { // if backend function returns true
-            if(result[1] == "success") {
-                findAndDestroy(document.getElementById(end).getElementsByClassName("piece")[0].id);
-            }
-            makeMove(start, end);
+        if(result[2] != "0") { // someone won
+            var winner = result[2] == "W" ? "Blue" : "Red";
+            var winnerColour = result[2] == "W" ? "white" : "black";
+            turn.innerHTML = "";
+            document.getElementById("board").innerHTML = "<h1 class='display-1 text-center pc-" + winnerColour + "'>" + winner +
+                                                            " Wins</h1><p class='text-center'><a href='/home'>Try again?</a></p>";
         } else {
-            document.getElementById("error").innerHTML = "Your move was invalid";
+            if(result[0] == "success") { // if backend function returns true
+                if(result[1] == "success") {
+                    findAndDestroy(document.getElementById(end).getElementsByClassName("piece")[0].id);
+                }
+                makeMove(start, end);
+            } else {
+                document.getElementById("error").innerHTML = "Your move was invalid";
+            }
         }
     });
     convertToStart();

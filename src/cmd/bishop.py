@@ -12,7 +12,7 @@ class Bishop(piece.Piece):
     def canMove(self,movement):
         moveArr = functions.splitMovement(movement)
         direction = moveArr[0]
-        if direction in [Direction.UPLEFT, Direction.UPRIGHT, Direction.DOWNLEFT, Direction.DOWNRIGHT]:
+        if direction in [Direction.UPLEFT.value, Direction.UPRIGHT.value, Direction.DOWNLEFT.value, Direction.DOWNRIGHT.value]:
             for i in range(1, len(moveArr)):
                 if(direction != moveArr[i]):
                     return False

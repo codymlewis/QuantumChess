@@ -12,7 +12,7 @@ class Queen(piece.Piece):
     def canMove(self, movement):
         moveArr = functions.splitMovement(movement)
         direction = moveArr[0]
-        if direction in [Direction.DOWN, Direction.UP, Direction.RIGHT, Direction.LEFT, Direction.DOWNRIGHT, Direction.DOWNLEFT, Direction.UPRIGHT, Direction.UPLEFT]:
+        if direction in [Direction.DOWN.value, Direction.UP.value, Direction.RIGHT.value, Direction.LEFT.value, Direction.DOWNRIGHT.value, Direction.DOWNLEFT.value, Direction.UPRIGHT.value, Direction.UPLEFT.value]:
             for i in range(1, len(moveArr)):
                 if(direction != moveArr[i]):
                     return False

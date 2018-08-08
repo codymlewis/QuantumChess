@@ -18,17 +18,17 @@ class Knight(piece.Piece):
         return False
 
     def __isL(self, moveArr):
-        if(moveArr[0] == Direction.UP):
-            if(moveArr[1] == Direction.UPLEFT or moveArr[1] == Direction.UPRIGHT):
+        if moveArr[0] == Direction.UP.value:
+            if moveArr[1] == Direction.UPLEFT.value or moveArr[1] == Direction.UPRIGHT.value:
                 return True
-        elif(moveArr[0] == Direction.DOWN):
-            if(moveArr[1] == Direction.DOWNLEFT or moveArr[1] == Direction.DOWNRIGHT):
+        elif moveArr[0] == Direction.DOWN.value:
+            if moveArr[1] == Direction.DOWNLEFT.value or moveArr[1] == Direction.DOWNRIGHT.value:
                 return True
-        elif(moveArr[0] == Direction.LEFT):
-            if(moveArr[1] == Direction.UPLEFT or moveArr[1] == Direction.DOWNLEFT):
+        elif moveArr[0] == Direction.LEFT.value:
+            if moveArr[1] == Direction.UPLEFT.value or moveArr[1] == Direction.DOWNLEFT.value:
                 return True
-        elif(moveArr[0] == Direction.RIGHT):
-            if(moveArr[1] == Direction.UPRIGHT or moveArr[1] == Direction.DOWNRIGHT):
+        elif moveArr[0] == Direction.RIGHT.value:
+            if moveArr[1] == Direction.UPRIGHT.value or moveArr[1] == Direction.DOWNRIGHT.value:
                 return True
         else:
             return False

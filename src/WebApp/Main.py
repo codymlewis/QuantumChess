@@ -16,5 +16,6 @@ def home():
         colour = clean(request.form["colour"])
         start = clean(request.form["start"])
         end = clean(request.form["end"])
-        Board.play(start, end, colour, sp)
+        return "success" if Board.play(start, end, colour, sp) else "fail"
+        # return "sp: {}, colour: {}, start: {}, end: {}".format(sp, colour, start, end)
     return render_template("index.html")

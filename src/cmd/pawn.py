@@ -20,9 +20,10 @@ class Pawn(piece.Piece):
             moveNum = 1
         if(len(moveArr) <= moveNum):
             if(self.colour == 'W'):
-                direction = Direction.UP
+                direction = Direction.UP.value
             else:
-                direction = Direction.DOWN
+                direction = Direction.DOWN.value
+                print(direction)
             for i in range(len(moveArr)):
                 if(not moveArr[i] == direction):
                     return False
@@ -32,11 +33,11 @@ class Pawn(piece.Piece):
     def canAttack(self, movement):
         moveArr = functions.splitMovement(movement)
         if(self.colour == 'W'):
-            dir1 = Direction.UPLEFT
-            dir2 = Direction.UPRIGHT
+            dir1 = Direction.UPLEFT.value
+            dir2 = Direction.UPRIGHT.value
         else:
-            dir1 = Direction.DOWNLEFT
-            dir2 = Direction.DOWNRIGHT
+            dir1 = Direction.DOWNLEFT.value
+            dir2 = Direction.DOWNRIGHT.value
         if(len(moveArr) == 1 and (moveArr[0] == dir1 or moveArr[0] == dir2)):
             return True
         else:

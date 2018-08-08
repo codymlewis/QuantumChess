@@ -14,6 +14,6 @@ class King(piece.Piece):
         moveArr = functions.splitMovement(movement)
         direction = moveArr[0]
         if(len(moveArr) == 1):
-            if direction in [Direction.DOWN, Direction.UP, Direction.RIGHT, Direction.LEFT, Direction.DOWNRIGHT, Direction.DOWNLEFT, Direction.UPRIGHT, Direction.UPLEFT]:
+            if direction in [Direction.DOWN.value, Direction.UP.value, Direction.RIGHT.value, Direction.LEFT.value, Direction.DOWNRIGHT.value, Direction.DOWNLEFT.value, Direction.UPRIGHT.value, Direction.UPLEFT.value]:
                 return True
         return False

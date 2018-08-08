@@ -17,7 +17,6 @@ if __name__ == "__main__":
         elif(winVal == 'B'):
             print("Black wins!")
             break
-
         print(b.toString())
         i+=1
         if(col == 'W'):
@@ -28,12 +27,12 @@ if __name__ == "__main__":
             print("Whites turn")
         while(True):
             superPos = str(input("Do you want to super-position (y/n)? "))
-            if(re.match(pattern,superPos)):
+            if(re.match(pattern, superPos)):
                 print('Super-position mode on')
                 sp = True
             start = str(input("Choose your starting piece: "))
             end = str(input("Choose your end place: "))
-            if(b.play(start,end,col,sp)):
+            if(b.play(start, end, col, sp)):
                 sp = False
                 break
             else:

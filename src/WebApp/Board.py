@@ -30,19 +30,19 @@ class Board:
                     self.playBoard[index] = '0'
 
     def addMovement(self, i, move): # add an atomic movement unit to the index
-        if(move == Functions.Direction.UP):
+        if(move == Functions.Direction.UP.value):
             i = chr(ord(i[0:1])-1) + str(int(i[1:]))
-        elif(move == Functions.Direction.DOWN):
+        elif(move == Functions.Direction.DOWN.value):
             i = chr(ord(i[0:1])+1) + str(int(i[1:]))
-        elif(move == Functions.Direction.RIGHT):
+        elif(move == Functions.Direction.RIGHT.value):
             i = i[0:1] + str(int(i[1:])-1)
-        elif(move == Functions.Direction.LEFT):
+        elif(move == Functions.Direction.LEFT.value):
             i = i[0:1] + str(int(i[1:])+1)
-        elif(move == Functions.Direction.UPRIGHT):
+        elif(move == Functions.Direction.UPRIGHT.value):
             i = chr(ord(i[0:1])-1) + str(int(i[1:])-1)
-        elif(move == Functions.Direction.DOWNRIGHT):
+        elif(move == Functions.Direction.DOWNRIGHT.value):
             i = chr(ord(i[0:1])+1) + str(int(i[1:])-1)
-        elif(move == Functions.Direction.DOWNLEFT):
+        elif(move == Functions.Direction.DOWNLEFT.value):
             i = chr(ord(i[0:1])+1)  + str(int(i[1:])+1)
         else:
             i = chr(ord(i[0:1])-1) + str(int(i[1:])+1)
@@ -59,9 +59,9 @@ class Board:
                     dx = int(start[1:]) - int(end[1:])   # +ve: right, -ve: left
                     movement = self.pathToString(dx, dy)
                     i = start
-                    i = self.addMovement(i,movement[0:1])
-                    if((self.playBoard[start].getId()[1:3] != "Kn" and (movement[0:1] in ['u', 'd', 'l', 'r'])) and i != end and self.playBoard[i] != '0'): # make sure nothing is in the way
-                        return False
+                    i = self.addMovement(i, movement[0:1])
+                    # if((self.playBoard[start].getId()[1:3] != "Kn" and (movement[0:1] in ['u', 'd', 'l', 'r'])) and i != end and self.playBoard[i] != '0'): # make sure nothing is in the way
+                    #     return False
                     if(len(movement) > 1):
                         for j in range(1, len(movement)):
                             i = self.addMovement(i, movement[j : j + 1])

@@ -12,7 +12,7 @@ class Rook(piece.Piece):
     def canMove(self, movement):
         moveArr = functions.splitMovement(movement)
         direction = moveArr[0]
-        if direction in [Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT]:
+        if direction in [Direction.UP.value, Direction.DOWN.value, Direction.LEFT.value, Direction.RIGHT.value]:
             for i in range(1, len(moveArr)):
                 if direction != moveArr[i]:
                     return False

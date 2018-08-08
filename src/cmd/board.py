@@ -15,7 +15,7 @@ from functions import Direction
 class Board:
     def __init__(self):
         self.playBoard = dict()
-        self.rows = 8
+        self.rows = 7
         self.columns = 8
         for i in range(97, 98+self.rows): # letters for columns, with 'a' at the top and 'i' at the bottom
             if(i == 97 or i == 98):

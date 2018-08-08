@@ -10,7 +10,7 @@
 
 {% block contents %}
     <div class="container-fluid bg-light">
-        <!-- <h1 class="display-1 text-center">Quantum Chess</h1> -->
+        <h1 class="display-1 text-center">Quantum Chess</h1>
         <br />
         <p class="pc-white text-center" id="turn">Blue's Turn</p>
         <div class="container">
@@ -19,9 +19,9 @@
                     <div class="row">
                         <div class="col-sm-2 text-right"></div>
                         {% for j in range(0, 8) %}
-                            <div class="col-1 {% if ((j % 2) == (i % 2)) %}bg-dark{% else %}bg-light{% endif %} square" id="{{ "abcgefgh"[i] }}{{ j + 1 }}">
+                            <div class="col-1 {% if ((j % 2) == (i % 2)) %}bg-dark{% else %}bg-light{% endif %} square" id="{{ "abcdefgh"[i] }}{{ j + 1 }}">
                             {% if i in [0, 1, 6, 7] %}
-                                <span class="piece text-center fa
+                                <span id="{{ 'abcdefgh'[i] }}{{ j + 1 }}" class="piece text-center fa
                                 {% if i in [0, 7] %}
                                     {% if j in [0, 7] %}
                                         fa-chess-rook
@@ -50,11 +50,14 @@
                     </div>
                 {% endfor %}
                 <br />
+                <div class="text-center text-danger" id="error"></div>
+                <br />
                 <div class="col-sm-4 mx-auto checkbox">
                         <label class="" for="sp">Super-position</label>
-                        <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" class="" name="sp" id="sp" value="checked">
+                        <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" class="" name="sp" id="sp" value="superpos">
                 </div>
             </div>
         </div>
     </div>
+    <br />
 {% endblock %}

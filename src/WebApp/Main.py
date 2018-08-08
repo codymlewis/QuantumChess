@@ -12,10 +12,11 @@ def index():
 @bp.route("/home", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
-        sp = True if request.form["sp"] == "checked" else False
+        sp = True if request.form["sp"] == "True" else False
         colour = clean(request.form["colour"])
         start = clean(request.form["start"])
         end = clean(request.form["end"])
-        return "success" if Board.play(start, end, colour, sp) else "fail"
-        # return "sp: {}, colour: {}, start: {}, end: {}".format(sp, colour, start, end)
+        success, sup_kill = Board.play(start, end, colour, sp)
+        return "{},{}".format("success" if success else "fail", "success"  if sup_kill else "fail")
+    Board.reset_board()
     return render_template("index.html")

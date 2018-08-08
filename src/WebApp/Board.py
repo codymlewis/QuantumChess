@@ -4,7 +4,7 @@ from . import Functions
 class Board:
     def __init__(self):
         self.playBoard = dict()
-        self.rows = 8
+        self.rows = 7
         self.columns = 8
         for i in range(97, 98+self.rows): # letters for columns, with 'a' at the top and 'i' at the bottom
             if(i == 97 or i == 98):
@@ -29,6 +29,9 @@ class Board:
                 else:
                     self.playBoard[index] = '0'
 
+    def reset(self):
+        self.__init__()
+
     def addMovement(self, i, move): # add an atomic movement unit to the index
         if(move == Functions.Direction.UP.value):
             i = chr(ord(i[0:1])-1) + str(int(i[1:]))
@@ -50,6 +53,7 @@ class Board:
 
     def play(self, start, end, colour, sp):
         # check if inputs are valid
+        supKill = False
         if(end != start and self.checkPoint(start) and self.checkPoint(end)):
             if(self.playBoard[start] != '0'):
                 # check if colour matches
@@ -60,13 +64,11 @@ class Board:
                     movement = self.pathToString(dx, dy)
                     i = start
                     i = self.addMovement(i, movement[0:1])
-                    # if((self.playBoard[start].getId()[1:3] != "Kn" and (movement[0:1] in ['u', 'd', 'l', 'r'])) and i != end and self.playBoard[i] != '0'): # make sure nothing is in the way
-                    #     return False
                     if(len(movement) > 1):
                         for j in range(1, len(movement)):
                             i = self.addMovement(i, movement[j : j + 1])
                             if(i != end and self.playBoard[i] != '0'): # check whether there are pieces in the way
-                                return False
+                                return False, supKill
                     # output path as string into piece
                     if(self.playBoard[end] == '0'):
                         if(self.playBoard[start].canMove(movement)):
@@ -76,9 +78,9 @@ class Board:
                             else:
                                 self.playBoard[end] = self.playBoard[start]
                                 self.playBoard[start] = '0'
-                            return True
+                            return True, supKill
                         else:
-                            return False
+                            return False, supKill
                     # check for attack
                     else: # ends at another piece
                         if(sp):
@@ -91,11 +93,11 @@ class Board:
                                     self.findAndDestroyParent(end)
                                 self.playBoard[end] = self.playBoard[start]
                                 self.playBoard[start] = '0'
-                                return True
-                            return False
+                                return True, supKill
+                            return False, supKill
                         else:
-                            return False
-        return False
+                            return False, supKill
+        return False, supKill
 
     def checkPoint(self, p): # check whether a point is on the board
         charNum = ord(p[0 : 1])
@@ -260,7 +262,9 @@ class Board:
         return string
 
 INSTANCEBOARD = Board()
+
+def reset_board():
+    INSTANCEBOARD.reset()
+
 def play(start, end, colour, sp):
-    if INSTANCEBOARD.play(start, end, colour, sp):
-        return INSTANCEBOARD.toString()
-    return False
+    return INSTANCEBOARD.play(start, end, colour, sp)

@@ -19,6 +19,7 @@ class Piece:
     def superposition(self):
         self.superposNo += 1
         self.idTag = self.idTag + str(self.superposNo)
+        print(self.idTag)
         if self.firstSuperPos:
             self.firstSuperPos = False
 

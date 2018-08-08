@@ -93,28 +93,49 @@ function movement(id, classes) {
 
 // post plays to backend, then change board based on response
 function postMovement(start, end) {
+    document.getElementById("error").innerHTML = "";
     var turn = document.getElementById("turn");
     var colour = turn.innerHTML == "Blue's Turn" ? "W" : "B";
-    var validMove;
-    superpos = sp.value == "checked" ? "True" : "False";
+    var superpos = sp.checked ? "True" : "False";
     $.post("/home", { "sp" : superpos, "colour" : colour, "start" : start, "end" : end }, function(data) {
-        // validMove = data;
-        alert("start: " + start + " end: " + end + " sp: " + superpos + " colour: " + colour);
-        alert(data);
-    });
-    if(validMove) {
-        // if backend function returns true
-        var startSquare = document.getElementById(start);
-        var endSquare = document.getElementById(end);
-        endSquare.innerHTML = startSquare.innerHTML;
-        startSquare.innerHTML = "";
-        if(turn.innerHTML == "Blue's Turn") {
-            turn.innerHTML = "Red's Turn";
-            turn.className = "pc-black text-center";
+        result = data.split(",");
+        if(result[0] == "success") { // if backend function returns true
+            if(result[1] == "success") {
+                findAndDestroy(document.getElementById(end).getElementsByClassName("piece")[0].id);
+            }
+            makeMove(start, end);
         } else {
-            turn.innerHTML = "Blue's Turn";
-            turn.className = "pc-white text-center";
+            document.getElementById("error").innerHTML = "Your move was invalid";
+        }
+    });
+    convertToStart();
+}
+
+function findAndDestroy(tag) {
+    tag = tag.substring(0, tag.length - 1);
+    var pieces = document.getElementsByClassName("piece");
+    for(var i = 0; i < pieces.length; i++) {
+        if(pieces[i].id.indexOf(tag) > -1) {
+            pieces[i].innerHTML = "";
         }
     }
-    convertToStart();
+}
+
+function makeMove(start, end) {
+    var startSquare = document.getElementById(start);
+    var endSquare = document.getElementById(end);
+    endSquare.innerHTML = startSquare.innerHTML;
+    if(!sp.checked) {
+        startSquare.innerHTML = "";
+    } else {
+        var endPiece = endSquare.getElementsByClassName("piece")[0];
+        endPiece.id += "1";
+    }
+    if(turn.innerHTML == "Blue's Turn") {
+        turn.innerHTML = "Red's Turn";
+        turn.className = "pc-black text-center";
+    } else {
+        turn.innerHTML = "Blue's Turn";
+        turn.className = "pc-white text-center";
+    }
 }

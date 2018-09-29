@@ -1,6 +1,5 @@
-from enum import Enum
 from qiskit import QuantumProgram
-def evalQubit(qrNo): # check if the most occurring qubit is all ones
+def evalQubit(qrNo):  # check if the most occurring qubit is all ones
     qp = QuantumProgram()
     try:
         qr = qp.create_quantum_register("qr", qrNo)
@@ -34,22 +33,3 @@ def getGreatestCount(qrNo, counts):
             greatestCount = index
             gc = counts[index]
     return greatestCount
-
-def splitMovement(movement):
-    # split the string movement into individual characters and store them in the returned array
-    # movement key: f = up dia left, u = up, q = up dia right, r = right, l = left, h = down dia left, d = down, g = down dia right
-    # Note: The move movement directions are from a birds eye view with the white pieces on the bottom
-    moveArr = []
-    for i in range(len(movement)):
-        moveArr.append(movement[i:i+1])
-    return moveArr
-
-class Direction(Enum):
-    UPLEFT = "f"
-    UP = "u"
-    UPRIGHT = "q"
-    RIGHT = "r"
-    LEFT = "l"
-    DOWN = "d"
-    DOWNLEFT = "h"
-    DOWNRIGHT = "g"

@@ -9,8 +9,11 @@ The web server side was intended to only be a graphical frontend to the program,
 thus is a bit inefficient as a web app, and on heroku the backend sometimes gets
 reset, so the frontend no longer matchs the backend.
 
-Requirements:
+## Requirements
 - Python 3.6+
 - qiskit
 - Flask
 - bleach
+
+## Running
+From this root execute `gunicorn wsgi --log-file -`

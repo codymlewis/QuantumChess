@@ -1,6 +1,5 @@
-# QuantumChess
-Quantum Chess by Cody Lewis
-
+#+TITLE: QuantumChess
+#+AUTHOR: Cody Lewis
 This is a python implementation of quantum chess using IBM's Qiskit for the
 case of piece superposition. That is, to calculate the probability of the
 entire pieces death. Sadly, the game runs for too long to have entanglement
@@ -9,11 +8,28 @@ The web server side was intended to only be a graphical frontend to the program,
 thus is a bit inefficient as a web app, and on heroku the backend sometimes gets
 reset, so the frontend no longer matchs the backend.
 
-## Requirements
+** Requirements
 - Python 3.6+
 - qiskit
 - Flask
 - bleach
 
-## Running
-From this root execute `gunicorn wsgi --log-file -`
+** Installing
+Get python, then run
+#+BEGIN_SRC shell
+pip install qiskit Flask bleach
+#+END_SRC
+
+** Running
+From this root execute:
+
+*** Web Version
+#+BEGIN_SRC shell
+gunicorn wsgi --log-file -
+#+END_SRC
+
+*** Command Line version
+#+BEGIN_SRC shell
+cd cmd/
+python play.py
+#+END_SRC

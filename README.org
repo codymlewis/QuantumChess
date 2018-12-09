@@ -9,15 +9,15 @@ thus is a bit inefficient as a web app, and on heroku the backend sometimes gets
 reset, so the frontend no longer matchs the backend.
 
 ** Requirements
-- Python 3.6+
+- flask
 - qiskit
-- Flask
 - bleach
+- gunicorn
 
 ** Installing
 Get python, then run
 #+BEGIN_SRC shell
-pip install qiskit Flask bleach
+pip install flask qiskit bleach gunicorn
 #+END_SRC
 
 ** Running
@@ -33,3 +33,4 @@ gunicorn wsgi --log-file -
 cd cmd/
 python play.py
 #+END_SRC
+
